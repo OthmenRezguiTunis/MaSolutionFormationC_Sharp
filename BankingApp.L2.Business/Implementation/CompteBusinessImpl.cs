@@ -7,13 +7,22 @@ using System.Threading.Tasks;
 using BankingApp.L1.DataAccess.Facade;
 using BankingApp.L2.Business.Facade;
 using BankingApp.L1.DataAccess.Implementations;
+using System.Runtime.CompilerServices;
 
 namespace BankingApp.L2.Business.Implementation
 {
     public class CompteBusinessImpl : ICompteBusiness
     {
         public const decimal TAUX = 0.1M;
-        private ICompteRepository repo = new ComptesRepositoryImp_EF(); 
+
+        private ICompteRepository repo;// new ComptesRepositoryImp_EF(); 
+
+
+        public CompteBusinessImpl(ICompteRepository repo)
+        {
+            this.repo = repo;
+        }
+
 
         public decimal ConsulterSolde(string Id)
         {
@@ -21,7 +30,7 @@ namespace BankingApp.L2.Business.Implementation
             if (resultat != null)
             {
 
-                return resultat.Numero.StartsWith("E") ? resultat.Solde * (1 * TAUX) : resultat.Solde ; 
+                return resultat.Numero.StartsWith("E") ? resultat.Solde * (1 * TAUX) : resultat.Solde;
 
             }
 
